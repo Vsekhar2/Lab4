@@ -16,6 +16,11 @@ public class Colosseum {
     static final int MAX_HIT_POINTS = 50;
 
     /**
+     * The maximum number of attack level we will allow a Pokemon to start with.
+     */
+    static final int MAX_ATTACK_LEVEL = 49;
+
+    /**
      * The maximum number of rounds we will let the Pokemon battle.
      */
     static final int MAX_NUM_ROUNDS = 10;
@@ -72,10 +77,60 @@ public class Colosseum {
      *         Implement this function.
      */
     public static Pokemon buildPokemon() {
-        Pokemon tempPokemon = new Pokemon();
+        int hitpoints = 0;
+        int attackLevel = 0;
+        int defenseLevel = 0;
+        boolean validInput = false;
+
+        System.out.println("Enter a Name: ");
+        String name = myScan.next();
+
+
+        while (validInput == false) {
+            System.out.println("Enter Hitpoints: ");
+            hitpoints = myScan.nextInt();
+
+            if (hitpoints > 0 & hitpoints <= MAX_HIT_POINTS) {
+                validInput = true;
+            } else {
+                System.out.println("Sorry. Hit points must be between 1 and 50");
+
+            }
+
+        }
+
+        validInput = false;
+
+        while (validInput == false) {
+            System.out.println("Enter Attack Level: ");
+            attackLevel = myScan.nextInt();
+
+            if (attackLevel > 0 & attackLevel < MAX_ATTACK_LEVEL) {
+                validInput = true;
+            } else {
+                System.out.println("Sorry. Attack Level must be between 1 and 49");
+
+            }
+
+        }
+
+        validInput = false;
+
+        while (validInput == false) {
+            System.out.println("Enter your defense Level: ");
+            defenseLevel = myScan.nextInt();
+
+            if (defenseLevel > 0 & defenseLevel < MAX_ATTACK_LEVEL) {
+                validInput = true;
+            } else {
+                System.out.println("Sorry. Defense level must be between 1 and 49");
+
+            }
+
+        }
+        Pokemon tempPokemon = new Pokemon(name, hitpoints, attackLevel, defenseLevel);
         return tempPokemon;
     }
-
     /**
      * Prints who is ahead.
      * <p>
@@ -90,7 +145,15 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
-        System.out.println("Implement me!");
+        System.out.println(firstPokemon.name + " has " + firstPokemon.hitPoints);
+        System.out.println(secondPokemon.name + " has " + secondPokemon.hitPoints);
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon.name + " is currently ahead!");
+        } else if (secondPokemon.hitPoints > firstPokemon.hitPoints) {
+            System.out.println(secondPokemon.name + " is currently ahead!");
+        } else if (secondPokemon.hitPoints == firstPokemon.hitPoints) {
+            System.out.println("Both " + firstPokemon.name + " and " +  secondPokemon.name + " are " + "tied.");
+        }
     }
 
     /**
@@ -101,7 +164,12 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon.name + " has won.");
+
+        } else if (secondPokemon.hitPoints > firstPokemon.hitPoints) {
+            System.out.println(secondPokemon.name + " has won");
+        }
     }
 
     /**
@@ -113,14 +181,14 @@ public class Colosseum {
         System.out.println("Player 1, build your Pokemon!");
         System.out.println("=================");
         firstPokemon = buildPokemon();
-        firstPokemon.name = "Chuchu";
+        //firstPokemon.name = "Chuchu";
 
         System.out.println("");
 
         System.out.println("Player 2, build your Pokemon!");
         System.out.println("==================");
         secondPokemon = buildPokemon();
-        secondPokemon.name = "Xyz";
+        //secondPokemon.name = "Xyz";
     }
 
     /**
@@ -193,3 +261,4 @@ public class Colosseum {
         myScan.close();
     }
 }
+
